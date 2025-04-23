@@ -83,6 +83,23 @@ namespace EventManagementSystem.Areas.Identity.Pages.Account
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
             [Required]
+            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 2)]
+            [Display(Name = "Full Name")]
+            public string FullName { get; set; }
+
+            /// <summary>
+            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
+            ///     directly from your code. This API may change or be removed in future releases.
+            /// </summary>
+            [StringLength(100)]
+            [Display(Name = "Organization")]
+            public string Organization { get; set; }
+
+            /// <summary>
+            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
+            ///     directly from your code. This API may change or be removed in future releases.
+            /// </summary>
+            [Required]
             [EmailAddress]
             public string Email { get; set; }
         }
@@ -134,6 +151,12 @@ namespace EventManagementSystem.Areas.Identity.Pages.Account
                     {
                         Email = info.Principal.FindFirstValue(ClaimTypes.Email)
                     };
+                    
+                    // Try to get name from external provider
+                    if (info.Principal.HasClaim(c => c.Type == ClaimTypes.Name))
+                    {
+                        Input.FullName = info.Principal.FindFirstValue(ClaimTypes.Name);
+                    }
                 }
                 return Page();
             }
@@ -153,6 +176,10 @@ namespace EventManagementSystem.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 var user = CreateUser();
+
+                // Set full name and organization
+                user.FullName = Input.FullName;
+                user.Organization = Input.Organization ?? string.Empty;
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
