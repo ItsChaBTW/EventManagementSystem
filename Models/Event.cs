@@ -33,7 +33,7 @@ namespace EventManagementSystem.Models
         
         [Display(Name = "Attendee Count")]
         public int? MaxAttendees { get; set; }
-        
+         
         // Navigation property for organizer
         public string? OrganizerId { get; set; }
         

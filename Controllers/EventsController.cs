@@ -73,7 +73,6 @@ namespace EventManagementSystem.Controllers
             }
             return View(@event);
         }
-
         // GET: Events/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -184,5 +183,7 @@ namespace EventManagementSystem.Controllers
         {
             return _context.Events.Any(e => e.Id == id);
         }
+
+        
     }
 } 
