@@ -2,23 +2,428 @@
     ViewData["Title"] = "Reports";
 }
 
-<h1>Event Reports</h1>
+@section Styles {
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+    <style>
+        .reports-container {
+            padding: 50px 0;
+            min-height: calc(100vh - 70px);
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        }
+        
+        .page-header {
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        
+        .page-title {
+            font-size: 2.8rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+            background: linear-gradient(45deg, #3a0ca3, #4361ee, #7209b7);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: inline-block;
+        }
+        
+        .page-description {
+            font-size: 1.25rem;
+            color: #6c757d;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+        
+        .report-cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .report-card {
+            background-color: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+            transition: all 0.3s ease;
+            height: 100%;
+            position: relative;
+            border: none;
+        }
+        
+        .report-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+        
+        .report-card-header {
+            padding: 25px 30px;
+            border-bottom: 1px solid #f1f1f1;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .report-icon {
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 15px;
+            font-size: 1.8rem;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .report-icon::after {
+            content: '';
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.15);
+            top: -10px;
+            right: -10px;
+        }
+        
+        .icon-monthly {
+            background: linear-gradient(135deg, #4361ee 0%, #3a0ca3 100%);
+        }
+        
+        .icon-category {
+            background: linear-gradient(135deg, #7209b7 0%, #560bad 100%);
+        }
+        
+        .icon-performance {
+            background: linear-gradient(135deg, #f72585 0%, #b5179e 100%);
+        }
+        
+        .report-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #333;
+            margin: 0;
+        }
+        
+        .report-badge {
+            font-size: 0.8rem;
+            border-radius: 20px;
+            padding: 5px 15px;
+            font-weight: 600;
+            display: inline-block;
+            margin-top: 8px;
+        }
+        
+        .badge-available {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+        }
+        
+        .badge-coming-soon {
+            background-color: #e3f2fd;
+            color: #1565c0;
+        }
+        
+        .report-card-body {
+            padding: 25px 30px;
+        }
+        
+        .report-description {
+            color: #6c757d;
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+        
+        .report-features {
+            margin: 20px 0;
+            padding: 0;
+            list-style: none;
+        }
+        
+        .report-feature {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed #f1f1f1;
+        }
+        
+        .report-feature:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        .feature-icon {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            color: white;
+            flex-shrink: 0;
+        }
+        
+        .feature-text {
+            font-size: 1rem;
+            color: #495057;
+        }
+        
+        .feature-chart {
+            background-color: #4361ee;
+        }
+        
+        .feature-data {
+            background-color: #3a0ca3;
+        }
+        
+        .feature-export {
+            background-color: #7209b7;
+        }
+        
+        .feature-analysis {
+            background-color: #560bad;
+        }
+        
+        .feature-insights {
+            background-color: #f72585;
+        }
+        
+        .feature-metrics {
+            background-color: #b5179e;
+        }
+        
+        .report-card-footer {
+            padding: 20px 30px;
+            background-color: #f8f9fa;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid #f1f1f1;
+        }
+        
+        .btn-view-report {
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+            border: none;
+        }
+        
+        .btn-view-report:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-blue {
+            background: linear-gradient(to right, #4361ee, #3a0ca3);
+        }
+        
+        .btn-purple {
+            background: linear-gradient(to right, #7209b7, #560bad);
+        }
+        
+        .btn-pink {
+            background: linear-gradient(to right, #f72585, #b5179e);
+        }
+        
+        .coming-soon-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+        
+        .coming-soon-badge {
+            background-color: #f8f9fa;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-weight: 700;
+            color: #6c757d;
+            font-size: 1.2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transform: rotate(-5deg);
+        }
+        
+        .btn-disabled {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+        
+        .last-updated {
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
+    </style>
+}
 
-<div class="row">
-    <div class="col-md-6">
-        <div class="card mb-4">
-            <div class="card-header">
-                <h5 class="mb-0">Monthly Reports</h5>
+<div class="reports-container">
+    <div class="container">
+        <div class="page-header">
+            <h1 class="page-title">Analytics & Reports</h1>
+            <p class="page-description">Gain valuable insights into your events with our comprehensive reporting tools. Track attendee engagement, monitor performance metrics, and analyze event categories to make data-driven decisions.</p>
+        </div>
+        
+        <div class="report-cards-container">
+            <!-- Monthly Reports Card -->
+            <div class="report-card">
+                <div class="report-card-header">
+                    <div class="report-icon icon-monthly">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div>
+                        <h3 class="report-title">Monthly Reports</h3>
+                        <span class="report-badge badge-available">Available</span>
+                    </div>
+                </div>
+                <div class="report-card-body">
+                    <p class="report-description">Get a comprehensive overview of your events performance on a monthly basis. Track attendance, engagement, and more.</p>
+                    
+                    <ul class="report-features">
+                        <li class="report-feature">
+                            <div class="feature-icon feature-chart">
+                                <i class="fas fa-chart-bar"></i>
+                            </div>
+                            <div class="feature-text">Monthly event attendance statistics</div>
+                        </li>
+                        <li class="report-feature">
+                            <div class="feature-icon feature-data">
+                                <i class="fas fa-calendar-check"></i>
+                            </div>
+                            <div class="feature-text">Total events organized per month</div>
+                        </li>
+                        <li class="report-feature">
+                            <div class="feature-icon feature-export">
+                                <i class="fas fa-file-export"></i>
+                            </div>
+                            <div class="feature-text">Export reports in PDF, CSV formats</div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="report-card-footer">
+                    <span class="last-updated">Updated: @DateTime.Now.ToString("MMM d, yyyy")</span>
+                    <a asp-action="Monthly" asp-controller="Reports" class="btn btn-view-report btn-blue">
+                        <i class="fas fa-eye"></i> View Report
+                    </a>
+                </div>
             </div>
-            <div class="card-body">
-                <p>View event statistics for a specific month including:</p>
-                <ul>
-                    <li>Total number of events</li>
-                    <li>Total number of attendees</li>
-                    <li>Details for each event</li>
-                </ul>
-                <a asp-action="Monthly" class="btn btn-primary">View Monthly Report</a>
+            
+            <!-- Category Analysis Card -->
+            <div class="report-card">
+                <div class="report-card-header">
+                    <div class="report-icon icon-category">
+                        <i class="fas fa-chart-pie"></i>
+                    </div>
+                    <div>
+                        <h3 class="report-title">Category Analysis</h3>
+                        <span class="report-badge badge-coming-soon">Coming Soon</span>
+                    </div>
+                </div>
+                <div class="report-card-body">
+                    <p class="report-description">Analyze event performance across different categories. Identify trends and optimize your event planning strategy.</p>
+                    
+                    <ul class="report-features">
+                        <li class="report-feature">
+                            <div class="feature-icon feature-analysis">
+                                <i class="fas fa-tags"></i>
+                            </div>
+                            <div class="feature-text">Breakdown of events by category</div>
+                        </li>
+                        <li class="report-feature">
+                            <div class="feature-icon feature-insights">
+                                <i class="fas fa-user-friends"></i>
+                            </div>
+                            <div class="feature-text">Attendance comparison by category</div>
+                        </li>
+                        <li class="report-feature">
+                            <div class="feature-icon feature-metrics">
+                                <i class="fas fa-chart-area"></i>
+                            </div>
+                            <div class="feature-text">Category popularity trends</div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="report-card-footer">
+                    <span class="last-updated">Estimated: Q3 2023</span>
+                    <a href="#" class="btn btn-view-report btn-purple btn-disabled">
+                        <i class="fas fa-eye"></i> View Report
+                    </a>
+                </div>
+                <div class="coming-soon-overlay">
+                    <div class="coming-soon-badge">
+                        <i class="fas fa-clock"></i> Coming Soon
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Performance Dashboard Card -->
+            <div class="report-card">
+                <div class="report-card-header">
+                    <div class="report-icon icon-performance">
+                        <i class="fas fa-tachometer-alt"></i>
+                    </div>
+                    <div>
+                        <h3 class="report-title">Performance Dashboard</h3>
+                        <span class="report-badge badge-coming-soon">Coming Soon</span>
+                    </div>
+                </div>
+                <div class="report-card-body">
+                    <p class="report-description">Interactive dashboard to track key performance indicators for your events. Monitor growth and identify opportunities.</p>
+                    
+                    <ul class="report-features">
+                        <li class="report-feature">
+                            <div class="feature-icon feature-chart">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <div class="feature-text">Real-time event performance metrics</div>
+                        </li>
+                        <li class="report-feature">
+                            <div class="feature-icon feature-data">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="feature-text">Attendee engagement analysis</div>
+                        </li>
+                        <li class="report-feature">
+                            <div class="feature-icon feature-export">
+                                <i class="fas fa-project-diagram"></i>
+                            </div>
+                            <div class="feature-text">Customizable KPI tracking</div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="report-card-footer">
+                    <span class="last-updated">Estimated: Q4 2023</span>
+                    <a href="#" class="btn btn-view-report btn-pink btn-disabled">
+                        <i class="fas fa-eye"></i> View Report
+                    </a>
+                </div>
+                <div class="coming-soon-overlay">
+                    <div class="coming-soon-badge">
+                        <i class="fas fa-clock"></i> Coming Soon
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</div> 
+</div>
