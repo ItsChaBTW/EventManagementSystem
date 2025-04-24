@@ -1,25 +1,31 @@
 {
   "format": 1,
   "restore": {
-    "C:\\xampp\\htdocs\\Projects\\EventManagementSystem\\EventManagementSystem.csproj": {}
+    "C:\\Users\\AVRIL\\Documents\\GitHub\\EventManagementSystem\\EventManagementSystem.csproj": {}
   },
   "projects": {
-    "C:\\xampp\\htdocs\\Projects\\EventManagementSystem\\EventManagementSystem.csproj": {
+    "C:\\Users\\AVRIL\\Documents\\GitHub\\EventManagementSystem\\EventManagementSystem.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\xampp\\htdocs\\Projects\\EventManagementSystem\\EventManagementSystem.csproj",
+        "projectUniqueName": "C:\\Users\\AVRIL\\Documents\\GitHub\\EventManagementSystem\\EventManagementSystem.csproj",
         "projectName": "EventManagementSystem",
-        "projectPath": "C:\\xampp\\htdocs\\Projects\\EventManagementSystem\\EventManagementSystem.csproj",
-        "packagesPath": "C:\\Users\\LENOVO i5\\.nuget\\packages\\",
-        "outputPath": "C:\\xampp\\htdocs\\Projects\\EventManagementSystem\\obj\\",
+        "projectPath": "C:\\Users\\AVRIL\\Documents\\GitHub\\EventManagementSystem\\EventManagementSystem.csproj",
+        "packagesPath": "C:\\Users\\AVRIL\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\AVRIL\\Documents\\GitHub\\EventManagementSystem\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\LENOVO i5\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\AVRIL\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -37,7 +43,8 @@
           "enableAudit": "true",
           "auditLevel": "low",
           "auditMode": "direct"
-        }
+        },
+        "SdkAnalysisLevel": "9.0.200"
       },
       "frameworks": {
         "net8.0": {
@@ -89,7 +96,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.407/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.201/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
