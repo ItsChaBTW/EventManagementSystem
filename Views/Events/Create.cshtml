@@ -4,68 +4,120 @@
     ViewData["Title"] = "Create Event";
 }
 
-<h1>Create Event</h1>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
-<hr />
-<div class="row">
-    <div class="col-md-8">
-        <form asp-action="Create" id="create-event-form">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group mb-3">
-                <label asp-for="Title" class="control-label"></label>
-                <input asp-for="Title" class="form-control" />
-                <span asp-validation-for="Title" class="text-danger"></span>
-            </div>
-            <div class="form-group mb-3">
-                <label asp-for="Description" class="control-label"></label>
-                <textarea asp-for="Description" class="form-control" rows="4"></textarea>
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-            <div class="row mb-3">
-                <div class="form-group col-md-6">
-                    <label asp-for="StartDate" class="control-label"></label>
-                    <input asp-for="StartDate" class="form-control" type="datetime-local" />
-                    <span asp-validation-for="StartDate" class="text-danger"></span>
+<style>
+    body {
+        font-family: 'Poppins', sans-serif;
+        background-color:rgb(144, 157, 192);
+    }
+    .container {
+        margin-top: 100px;
+        padding: 30px;
+        background-color: white;
+        width: 780px;
+        border-radius: 30px;
+        position: relative;
+    }
+    h1 {
+        text-align: center;
+    }
+    .row {
+        justify-content: center;
+        align-items: center;
+        display: flex;
+    }
+
+    .back-to-list {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 10; 
+    font-size: 24px;
+    background: none;
+    border: none;
+    color: black;
+    cursor: pointer;
+    padding: 10px;
+    transition: color 0.3s ease;
+}
+
+    .back-to-list:hover {
+        color: #0056b3; 
+    }
+</style>
+
+<div class="container mb-4">
+
+    <a asp-action="Index" class="back-to-list">
+        <i class="fas fa-arrow-left"></i>
+    </a>
+
+    <h1 class="fs-4 mt-3 mb-2">Create Event</h1>
+
+    <hr />
+
+    <div class="row">
+        <div class="col-md-12">
+            <form asp-action="Create" id="create-event-form">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group mb-3">
+                    <label asp-for="Title" class="control-label"></label>
+                    <input asp-for="Title" class="form-control" />
+                    <span asp-validation-for="Title" class="text-danger"></span>
                 </div>
-                <div class="form-group col-md-6">
-                    <label asp-for="EndDate" class="control-label"></label>
-                    <input asp-for="EndDate" class="form-control" type="datetime-local" />
-                    <span asp-validation-for="EndDate" class="text-danger"></span>
+                <div class="form-group mb-3">
+                    <label asp-for="Description" class="control-label"></label>
+                    <textarea asp-for="Description" class="form-control" rows="4"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
                 </div>
-            </div>
-            <div class="form-group mb-3">
-                <label asp-for="Location" class="control-label"></label>
-                <input asp-for="Location" class="form-control" />
-                <span asp-validation-for="Location" class="text-danger"></span>
-            </div>
-            <div class="form-group mb-3">
-                <label asp-for="Category" class="control-label"></label>
-                <select asp-for="Category" class="form-control">
-                    <option value="">-- Select a Category --</option>
-                    <option value="Conference">Conference</option>
-                    <option value="Seminar">Seminar</option>
-                    <option value="Workshop">Workshop</option>
-                    <option value="Party">Party</option>
-                    <option value="Exhibition">Exhibition</option>
-                    <option value="Concert">Concert</option>
-                    <option value="Meeting">Meeting</option>
-                    <option value="Other">Other</option>
-                </select>
-                <span asp-validation-for="Category" class="text-danger"></span>
-            </div>
-            <div class="form-group mb-3">
-                <label asp-for="MaxAttendees" class="control-label"></label>
-                <input asp-for="MaxAttendees" class="form-control" />
-                <span asp-validation-for="MaxAttendees" class="text-danger"></span>
-            </div>
-            <div class="form-group mb-3">
-                <input type="submit" value="Create" class="btn btn-primary" />
-                <a asp-action="Index" class="btn btn-secondary">Back to List</a>
-            </div>
-        </form>
+                <div class="row mb-3">
+                    <div class="form-group col-md-6">
+                        <label asp-for="StartDate" class="control-label"></label>
+                        <input asp-for="StartDate" class="form-control" type="datetime-local" />
+                        <span asp-validation-for="StartDate" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="EndDate" class="control-label"></label>
+                        <input asp-for="EndDate" class="form-control" type="datetime-local" />
+                        <span asp-validation-for="EndDate" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group mb-3">
+                    <label asp-for="Location" class="control-label"></label>
+                    <input asp-for="Location" class="form-control" />
+                    <span asp-validation-for="Location" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-3">
+                    <label asp-for="Category" class="control-label"></label>
+                    <select asp-for="Category" class="form-control">
+                        <option value="">-- Select a Category --</option>
+                        <option value="Conference">Conference</option>
+                        <option value="Seminar">Seminar</option>
+                        <option value="Workshop">Workshop</option>
+                        <option value="Party">Party</option>
+                        <option value="Exhibition">Exhibition</option>
+                        <option value="Concert">Concert</option>
+                        <option value="Meeting">Meeting</option>
+                        <option value="Other">Other</option>
+                    </select>
+                    <span asp-validation-for="Category" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-3">
+                    <label asp-for="MaxAttendees" class="control-label"></label>
+                    <input asp-for="MaxAttendees" class="form-control" />
+                    <span asp-validation-for="MaxAttendees" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-3">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-} 
+}

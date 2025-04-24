@@ -3,57 +3,104 @@
 @{
     ViewData["Title"] = "Event Details";
 }
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
-<h1>Event Details</h1>
+<style>
+    body {
+        font-family: 'Poppins', sans-serif;
+        background-color:rgb(144, 157, 192);
+    }
+    .container {
+        margin-top: 100px;
+        padding: 30px;
+        background-color: white;
+        width: 450px;
+        border-radius: 30px;
+        position: relative;
+    }
+    .back-to-list {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        z-index: 10; 
+        font-size: 24px;
+        background: none;
+        border: none;
+        color: black;
+        cursor: pointer;
+        padding: 10px;
+        transition: color 0.3s ease;
+    }
 
-<div>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.StartDate)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.StartDate)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.EndDate)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.EndDate)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Location)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Location)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Category)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Category)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.MaxAttendees)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.MaxAttendees)
-        </dd>
-    </dl>
+    .back-to-list:hover {
+        color: #0056b3; 
+    }
+
+    h1{
+        text-align: center;
+    }
+    .btn-warning{
+        background-color: #818FB4;
+    }
+</style>
+<div class="container">
+
+    <a asp-action="Index" class="back-to-list">
+        <i class="fas fa-arrow-left"></i>
+    </a>
+
+    <h1 class="fs-4 mt-3 mb-2">Event Details</h1>
+
+    <div>
+        <hr />
+        <div class="d-flex justify-content-center">
+            <dl class="row text-left">
+
+                <div class="mb-3">
+                    <dt class="d-inline">@Html.DisplayNameFor(model => model.Title):</dt>
+                    <dd class="d-inline">@Html.DisplayFor(model => model.Title)</dd>
+                </div>
+
+                <div class="mb-3">
+                    <dt class="d-inline">@Html.DisplayNameFor(model => model.Description):</dt>
+                    <dd class="d-inline">@Html.DisplayFor(model => model.Description)</dd>
+                </div>
+
+                <div class="mb-3">
+                    <dt class="d-inline">@Html.DisplayNameFor(model => model.StartDate):</dt>
+                    <dd class="d-inline">@Html.DisplayFor(model => model.StartDate)</dd>
+                </div>
+
+                <div class="mb-3">
+                    <dt class="d-inline">@Html.DisplayNameFor(model => model.EndDate):</dt>
+                    <dd class="d-inline">@Html.DisplayFor(model => model.EndDate)</dd>
+                </div>
+
+                <div class="mb-3">
+                    <dt class="d-inline">@Html.DisplayNameFor(model => model.Location):</dt>
+                    <dd class="d-inline">@Html.DisplayFor(model => model.Location)</dd>
+                </div>
+
+                <div class="mb-3">
+                    <dt class="d-inline">@Html.DisplayNameFor(model => model.Category):</dt>
+                    <dd class="d-inline">@Html.DisplayFor(model => model.Category)</dd>
+                </div>
+
+                <div class="mb-3">
+                    <dt class="d-inline">@Html.DisplayNameFor(model => model.MaxAttendees):</dt>
+                    <dd class="d-inline">@Html.DisplayFor(model => model.MaxAttendees)</dd>
+                </div>
+
+            </dl>
+
+        </div>
+        </div>
+        
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-warning">Edit</a>
+    </div> 
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-warning">Edit</a>
-    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
-</div> 
+
+

@@ -196,6 +196,7 @@
             font-weight: 500;
             cursor: pointer;
             transition: all 0.2s;
+            width: auto;
         }
         
         .filter-item:hover, .filter-item.active {
@@ -205,20 +206,25 @@
         
         .category-filter {
             display: flex;
-            overflow-x: auto;
+            justify-content: flex-start;
+            flex-wrap: nowrap;  
+            width: 100%;
             padding-bottom: 5px;
             margin-bottom: 5px;
+            gap: 10px;
+            overflow-x: auto;
+            white-space: nowrap; 
         }
-        
+
         .category-filter::-webkit-scrollbar {
             height: 5px;
         }
-        
+
         .category-filter::-webkit-scrollbar-thumb {
-            background-color: rgba(0,0,0,0.1);
+            background-color: rgba(0, 0, 0, 0.1);
             border-radius: 10px;
         }
-        
+
         .search-input {
             border-radius: 20px;
             padding-left: 40px;
@@ -233,11 +239,11 @@
         }
         
         .create-btn {
-            background: linear-gradient(135deg, #363062 0%, #4D4C7D 100%);
+            background: linear-gradient(135deg,rgb(180, 174, 227) 0%,rgb(195, 195, 226) 100%);
             border: none;
             border-radius: 25px;
             padding: 10px 25px;
-            color: white;
+            color: #363062;
             font-weight: 600;
             box-shadow: 0 4px 15px rgba(54, 48, 98, 0.3);
             transition: all 0.3s;
@@ -246,6 +252,9 @@
         .create-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 8px 20px rgba(54, 48, 98, 0.4);
+            background: #363062;
+            color: linear-gradient(135deg,rgb(180, 174, 227) 0%,rgb(195, 195, 226) 100%);
+            border: 2px solid white;
         }
         
         .no-events {
@@ -274,6 +283,8 @@
         #create{
             background-color: #818FB4;
         }
+
+     
     </style>
 }
 
@@ -291,8 +302,15 @@
     </div>
     
     <div class="filters-bar">
+        <div class="col-lg-12 text-center">
+            <div class="position-relative search-bar-wrapper mx-auto">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" id="searchEvents" class="form-control search-input" placeholder="Search events...">
+            </div>
+        </div>
+        <hr>
         <div class="row mb-3">
-            <div class="col-lg-9">
+            <div class="col-lg-12">
                 <div class="category-filter">
                     <div class="filter-item active" data-filter="all">All Events</div>
                     <div class="filter-item" data-filter="upcoming">Upcoming</div>
@@ -305,12 +323,6 @@
                     <div class="filter-item" data-filter="Exhibition">Exhibition</div>
                     <div class="filter-item" data-filter="Concert">Concert</div>
                     <div class="filter-item" data-filter="Meeting">Meeting</div>
-                </div>
-            </div>
-            <div class="col-lg-3">
-                <div class="position-relative">
-                    <i class="fas fa-search search-icon"></i>
-                    <input type="text" id="searchEvents" class="form-control search-input" placeholder="Search events...">
                 </div>
             </div>
         </div>
