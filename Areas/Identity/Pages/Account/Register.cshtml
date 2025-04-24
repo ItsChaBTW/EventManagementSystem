@@ -4,73 +4,204 @@
     ViewData["Title"] = "Register";
 }
 
-<h1>@ViewData["Title"]</h1>
-
-<div class="row">
-    <div class="col-md-4">
-        <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
-            <h2>Create a new account.</h2>
-            <hr />
-            <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
-            <div class="form-floating mb-3">
-                <input asp-for="Input.FullName" class="form-control" autocomplete="name" aria-required="true" placeholder="Full Name" />
-                <label asp-for="Input.FullName">Full Name</label>
-                <span asp-validation-for="Input.FullName" class="text-danger"></span>
+<div class="auth-container">
+    <div class="auth-card">
+        <div class="auth-header">
+            <h2>Create Account</h2>
+            <p>Sign up to get started with our service</p>
+        </div>
+        <div class="auth-body">
+            <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+                <div class="form-floating mb-3">
+                    <input asp-for="Input.FullName" class="form-control custom-input" autocomplete="name" aria-required="true" placeholder="Full Name" />
+                    <label asp-for="Input.FullName">Full Name</label>
+                    <span asp-validation-for="Input.FullName" class="text-danger"></span>
+                </div>
+                <div class="form-floating mb-3">
+                    <input asp-for="Input.Organization" class="form-control custom-input" autocomplete="organization" aria-required="true" placeholder="Organization" />
+                    <label asp-for="Input.Organization">Organization</label>
+                    <span asp-validation-for="Input.Organization" class="text-danger"></span>
+                </div>
+                <div class="form-floating mb-3">
+                    <input asp-for="Input.Email" class="form-control custom-input" autocomplete="username" aria-required="true" placeholder="name@example.com" />
+                    <label asp-for="Input.Email">Email</label>
+                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                </div>
+                <div class="form-floating mb-3">
+                    <input asp-for="Input.Password" class="form-control custom-input" autocomplete="new-password" aria-required="true" placeholder="password" />
+                    <label asp-for="Input.Password">Password</label>
+                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                </div>
+                <div class="form-floating mb-3">
+                    <input asp-for="Input.ConfirmPassword" class="form-control custom-input" autocomplete="new-password" aria-required="true" placeholder="password" />
+                    <label asp-for="Input.ConfirmPassword">Confirm Password</label>
+                    <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                </div>
+                <div>
+                    <button id="registerSubmit" type="submit" class="auth-button">Register</button>
+                </div>
+                <div class="links-section">
+                    <p>
+                        Already have an account? <a asp-page="./Login" asp-route-returnUrl="@Model.ReturnUrl">Log in</a>
+                    </p>
+                </div>
+            </form>
+        </div>
+        
+        @if ((Model.ExternalLogins?.Count ?? 0) > 0)
+        {
+            <div class="auth-divider">
+                <span>OR</span>
             </div>
-            <div class="form-floating mb-3">
-                <input asp-for="Input.Organization" class="form-control" autocomplete="organization" aria-required="true" placeholder="Organization" />
-                <label asp-for="Input.Organization">Organization</label>
-                <span asp-validation-for="Input.Organization" class="text-danger"></span>
+            <div class="external-auth">
+                <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                    @foreach (var provider in Model.ExternalLogins!)
+                    {
+                        <button type="submit" class="external-auth-button" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">
+                            Register with @provider.DisplayName
+                        </button>
+                    }
+                </form>
             </div>
-            <div class="form-floating mb-3">
-                <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
-                <label asp-for="Input.Email">Email</label>
-                <span asp-validation-for="Input.Email" class="text-danger"></span>
-            </div>
-            <div class="form-floating mb-3">
-                <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
-                <label asp-for="Input.Password">Password</label>
-                <span asp-validation-for="Input.Password" class="text-danger"></span>
-            </div>
-            <div class="form-floating mb-3">
-                <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
-                <label asp-for="Input.ConfirmPassword">Confirm Password</label>
-                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
-            </div>
-            <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
-        </form>
-    </div>
-    <div class="col-md-6 col-md-offset-2">
-        <section>
-            <h3>Use another service to register.</h3>
-            <hr />
-            @{
-                if ((Model.ExternalLogins?.Count ?? 0) == 0)
-                {
-                    <div>
-                        <p>
-                            There are no external authentication services configured. See this <a href="https://go.microsoft.com/fwlink/?LinkID=532715">article
-                            about setting up this ASP.NET application to support logging in via external services</a>.
-                        </p>
-                    </div>
-                }
-                else
-                {
-                    <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
-                        <div>
-                            <p>
-                                @foreach (var provider in Model.ExternalLogins!)
-                                {
-                                    <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
-                                }
-                            </p>
-                        </div>
-                    </form>
-                }
-            }
-        </section>
+        }
     </div>
 </div>
+
+<style>
+    :root {
+        --primary-color: #363062;
+        --primary-light: #4a4346;
+        --primary-dark: #252223;
+        --text-light: #ffffff;
+        --text-dark: #333333;
+        --accent-color: #5c5b5b;
+    }
+    
+    .auth-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 70vh;
+        padding: 20px;
+    }
+    
+    .auth-card {
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 450px;
+        overflow: hidden;
+    }
+    
+    .auth-header {
+        background-color: var(--primary-color);
+        color: var(--text-light);
+        padding: 25px;
+        text-align: center;
+    }
+    
+    .auth-header h2 {
+        margin: 0;
+        font-weight: 700;
+        font-size: 24px;
+    }
+    
+    .auth-header p {
+        margin: 10px 0 0;
+        opacity: 0.8;
+        font-size: 14px;
+    }
+    
+    .auth-body {
+        padding: 30px;
+    }
+    
+    .custom-input {
+        border: 1px solid #ddd;
+        border-radius: 5px;
+    }
+    
+    .custom-input:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 0.25rem rgba(54, 48, 50, 0.25);
+    }
+    
+    .auth-button {
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 12px 20px;
+        font-size: 16px;
+        width: 100%;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+    
+    .auth-button:hover {
+        background-color: var(--primary-light);
+    }
+    
+    .links-section {
+        margin-top: 20px;
+        text-align: center;
+        font-size: 14px;
+    }
+    
+    .links-section a {
+        color: var(--primary-color);
+        text-decoration: none;
+    }
+    
+    .links-section a:hover {
+        text-decoration: underline;
+    }
+    
+    .auth-divider {
+        text-align: center;
+        margin: 15px 0;
+        position: relative;
+    }
+    
+    .auth-divider::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 30px;
+        right: 30px;
+        height: 1px;
+        background-color: #ddd;
+    }
+    
+    .auth-divider span {
+        position: relative;
+        background-color: white;
+        padding: 0 10px;
+        color: var(--accent-color);
+        font-size: 14px;
+    }
+    
+    .external-auth {
+        padding: 0 30px 30px;
+    }
+    
+    .external-auth-button {
+        width: 100%;
+        background-color: white;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 10px;
+        margin-bottom: 10px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+    
+    .external-auth-button:hover {
+        background-color: #f8f9fa;
+    }
+</style>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

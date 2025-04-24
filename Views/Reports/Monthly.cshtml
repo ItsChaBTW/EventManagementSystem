@@ -1,0 +1,121 @@
+@model EventManagementSystem.Models.EventReport
+
+@{
+    ViewData["Title"] = "Monthly Report";
+}
+
+<h1>Monthly Event Report</h1>
+<h3>@Model.MonthName</h3>
+
+<div class="row mb-4">
+    <div class="col-md-6">
+        <form method="get" class="form-inline">
+            <div class="row g-3 align-items-center">
+                <div class="col-auto">
+                    <label class="col-form-label">Select Month:</label>
+                </div>
+                <div class="col-auto">
+                    <select name="month" class="form-select" asp-items="@(new SelectList(ViewBag.MonthsList, "Value", "Text", ViewBag.CurrentMonth))"></select>
+                </div>
+                <div class="col-auto">
+                    <select name="year" class="form-select" asp-items="@(new SelectList(ViewBag.YearsList, "Value", "Text", ViewBag.CurrentYear))"></select>
+                </div>
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-primary">View Report</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0">Summary</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="summary-item">
+                            <h4>@Model.TotalEvents</h4>
+                            <p>Total Events</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="summary-item">
+                            <h4>@Model.TotalAttendees</h4>
+                            <p>Total Attendees</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (Model.Events.Any())
+{
+    <h3>Event Details</h3>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Date</th>
+                    <th>Category</th>
+                    <th>Attendees</th>
+                    <th>Organizer</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Events)
+                {
+                    <tr>
+                        <td>@item.Title</td>
+                        <td>@item.StartDate.ToShortDateString()</td>
+                        <td>@item.Category</td>
+                        <td>@(item.MaxAttendees?.ToString() ?? "N/A")</td>
+                        <td>@item.OrganizerName</td>
+                        <td>
+                            <a asp-controller="Events" asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info">Details</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <div class="alert alert-info">
+        No events found for this month.
+    </div>
+}
+
+<div>
+    <a asp-action="Index" class="btn btn-secondary">Back to Reports</a>
+</div>
+
+@section Styles {
+    <style>
+        .summary-item {
+            text-align: center;
+            padding: 15px;
+            border-radius: 5px;
+            background-color: #f8f9fa;
+        }
+        
+        .summary-item h4 {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 0;
+        }
+        
+        .summary-item p {
+            margin: 0;
+            color: #6c757d;
+        }
+    </style>
+} 
