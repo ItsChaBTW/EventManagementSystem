@@ -7,6 +7,10 @@
 @section Styles {
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
     <style>
+        body{
+            font-family: 'Poppins', sans-serif;
+            background-color:rgb(144, 157, 192);
+        }
         .stats-card {
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -78,208 +82,230 @@
         .progress-thin {
             height: 8px;
         }
+        .container{
+            margin-top: 100px;
+            padding: 20px;
+            border-radius: 30px;
+        }
+
+        h1{
+            text-align: center;
+            color: white;
+            text-shadow: 1px 1px 2px black;
+        }
+
+        #welcome{
+            text-shadow: 1px 1px 2px black;
+        }
+        
+        #num{
+            color: #363062;
+        }
+
+    
     </style>
 }
 
-<div class="row mb-4 align-items-center">
-    <div class="col">
-        <h1><i class="fas fa-tachometer-alt me-2"></i> Dashboard</h1>
-        <p class="text-muted">Welcome to your event management dashboard</p>
+<div class="container">
+    <div class="row mb-4 align-items-center">
+        <div class="col">
+            <h1><i class="fas fa-tachometer-alt me-2 fs-6 text-center"></i> Dashboard</h1>
+            <p class="text-white fs-4 text-center" id="welcome">Welcome to your event management dashboard</p>
+        </div>
     </div>
-   
-</div>
 
-<!-- Stats Cards -->
-<div class="row mb-4">
-    <div class="col-xl-3 col-md-6 mb-4">
-        <div class="stats-card card-blue p-3">
-            <div class="d-flex justify-content-between align-items-center">
-                <div>
-                    <div class="text-xs font-weight-bold text-uppercase mb-1 text-primary">Total Events</div>
-                    <div class="h4 mb-0 font-weight-bold">@Model.TotalEvents</div>
-                </div>
-                <div class="icon-circle bg-blue">
-                    <i class="fas fa-calendar fa-lg"></i>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <div class="col-xl-3 col-md-6 mb-4">
-        <div class="stats-card card-green p-3">
-            <div class="d-flex justify-content-between align-items-center">
-                <div>
-                    <div class="text-xs font-weight-bold text-uppercase mb-1 text-success">Upcoming Events</div>
-                    <div class="h4 mb-0 font-weight-bold">@Model.UpcomingEvents</div>
-                </div>
-                <div class="icon-circle bg-green">
-                    <i class="fas fa-clock fa-lg"></i>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <div class="col-xl-3 col-md-6 mb-4">
-        <div class="stats-card card-yellow p-3">
-            <div class="d-flex justify-content-between align-items-center">
-                <div>
-                    <div class="text-xs font-weight-bold text-uppercase mb-1 text-warning">Ongoing Events</div>
-                    <div class="h4 mb-0 font-weight-bold">@Model.OngoingEvents</div>
-                </div>
-                <div class="icon-circle bg-yellow">
-                    <i class="fas fa-star fa-lg"></i>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <div class="col-xl-3 col-md-6 mb-4">
-        <div class="stats-card card-red p-3">
-            <div class="d-flex justify-content-between align-items-center">
-                <div>
-                    <div class="text-xs font-weight-bold text-uppercase mb-1 text-danger">Past Events</div>
-                    <div class="h4 mb-0 font-weight-bold">@Model.PastEvents</div>
-                </div>
-                <div class="icon-circle bg-red">
-                    <i class="fas fa-history fa-lg"></i>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="row mb-4">
-    <!-- Event Categories Chart -->
-    <div class="col-lg-6 mb-4">
-        <div class="card shadow h-100">
-            <div class="card-header py-3 d-flex justify-content-between align-items-center">
-                <h6 class="m-0 font-weight-bold">Events by Category</h6>
-            </div>
-            <div class="card-body">
-                <div class="chart-container">
-                    <canvas id="categoryChart"></canvas>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Category Statistics -->
-    <div class="col-lg-6 mb-4">
-        <div class="card shadow h-100">
-            <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold">Category Distribution</h6>
-            </div>
-            <div class="card-body">
-                @foreach (var category in Model.EventsByCategory)
-                {
-                    <h4 class="small font-weight-bold mb-1">
-                        @category.CategoryName
-                        <span class="float-end">@category.Count</span>
-                    </h4>
-                    <div class="progress progress-thin mb-3">
-                        <div class="progress-bar" 
-                             role="progressbar" 
-                             style="width: @(Model.TotalEvents > 0 ? (category.Count * 100 / Model.TotalEvents) : 0)%; background-color: @category.ColorCode;" 
-                             aria-valuenow="@(Model.TotalEvents > 0 ? (category.Count * 100 / Model.TotalEvents) : 0)" 
-                             aria-valuemin="0" 
-                             aria-valuemax="100">
-                        </div>
+    <div class="row mb-4">
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="stats-card card-blue p-3">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <div class="text-xs font-weight-bold text-uppercase mb-1 text-primary">Total Events</div>
+                        <div class="h4 mb-0 font-weight-bold" id="num">@Model.TotalEvents</div>
                     </div>
-                }
-                @if (!Model.EventsByCategory.Any())
-                {
-                    <div class="text-center py-4">
-                        <p class="text-muted">No event categories to display</p>
+                    <div class="icon-circle bg-blue">
+                        <i class="fas fa-calendar fa-lg"></i>
                     </div>
-                }
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="stats-card card-green p-3">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <div class="text-xs font-weight-bold text-uppercase mb-1 text-success">Upcoming Events</div>
+                        <div class="h4 mb-0 font-weight-bold"id="num">@Model.UpcomingEvents</div>
+                    </div>
+                    <div class="icon-circle bg-green">
+                        <i class="fas fa-clock fa-lg"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="stats-card card-yellow p-3">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <div class="text-xs font-weight-bold text-uppercase mb-1 text-warning">Ongoing Events</div>
+                        <div class="h4 mb-0 font-weight-bold" id="num">@Model.OngoingEvents</div>
+                    </div>
+                    <div class="icon-circle bg-yellow">
+                        <i class="fas fa-star fa-lg"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="stats-card card-red p-3">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <div class="text-xs font-weight-bold text-uppercase mb-1 text-danger">Past Events</div>
+                        <div class="h4 mb-0 font-weight-bold" id="num">@Model.PastEvents</div>
+                    </div>
+                    <div class="icon-circle bg-red">
+                        <i class="fas fa-history fa-lg"></i>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<div class="row">
-    <!-- Recent Events -->
-    <div class="col-lg-6 mb-4">
-        <div class="card shadow h-100">
-            <div class="card-header py-3 d-flex justify-content-between align-items-center">
-                <h6 class="m-0 font-weight-bold">Recent Events</h6>
-                <a asp-controller="Events" asp-action="Index" class="btn btn-sm btn-outline-primary">View All</a>
+    <div class="row mb-4">
+        <!-- Event Categories Chart -->
+        <div class="col-lg-6 mb-4">
+            <div class="card shadow h-100">
+                <div class="card-header py-3 d-flex justify-content-between align-items-center">
+                    <h6 class="m-0 font-weight-bold">Events by Category</h6>
+                </div>
+                <div class="card-body">
+                    <div class="chart-container">
+                        <canvas id="categoryChart"></canvas>
+                    </div>
+                </div>
             </div>
-            <div class="card-body event-list">
-                @if (Model.RecentEvents.Any())
-                {
-                    @foreach (var item in Model.RecentEvents)
+        </div>
+        
+        <!-- Category Statistics -->
+        <div class="col-lg-6 mb-4">
+            <div class="card shadow h-100">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold">Category Distribution</h6>
+                </div>
+                <div class="card-body">
+                    @foreach (var category in Model.EventsByCategory)
                     {
-                        <div class="event-item" style="border-left-color: @GetCategoryColor(item.Category)">
-                            <div class="d-flex justify-content-between align-items-center mb-2">
-                                <h5 class="mb-0">@item.Title</h5>
-                                <span class="category-badge" style="background-color: @GetCategoryColor(item.Category)">
-                                    @item.Category
-                                </span>
-                            </div>
-                            <div class="text-muted mb-2">
-                                <i class="far fa-calendar-alt me-2"></i>@item.StartDate.ToString("MMM dd, yyyy h:mm tt")
-                            </div>
-                            <div class="text-muted">
-                                <i class="fas fa-map-marker-alt me-2"></i>@item.Location
-                            </div>
-                            <div class="mt-2">
-                                <a asp-controller="Events" asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-light">View Details</a>
+                        <h4 class="small font-weight-bold mb-1">
+                            @category.CategoryName
+                            <span class="float-end">@category.Count</span>
+                        </h4>
+                        <div class="progress progress-thin mb-3">
+                            <div class="progress-bar" 
+                                role="progressbar" 
+                                style="width: @(Model.TotalEvents > 0 ? (category.Count * 100 / Model.TotalEvents) : 0)%; background-color: @category.ColorCode;" 
+                                aria-valuenow="@(Model.TotalEvents > 0 ? (category.Count * 100 / Model.TotalEvents) : 0)" 
+                                aria-valuemin="0" 
+                                aria-valuemax="100">
                             </div>
                         </div>
                     }
-                }
-                else
-                {
-                    <div class="text-center py-4">
-                        <p class="text-muted">No recent events to display</p>
-                    </div>
-                }
+                    @if (!Model.EventsByCategory.Any())
+                    {
+                        <div class="text-center py-4">
+                            <p class="text-muted">No event categories to display</p>
+                        </div>
+                    }
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Upcoming Events -->
-    <div class="col-lg-6 mb-4">
-        <div class="card shadow h-100">
-            <div class="card-header py-3 d-flex justify-content-between align-items-center">
-                <h6 class="m-0 font-weight-bold">Upcoming Events</h6>
-                <a asp-controller="Events" asp-action="Index" class="btn btn-sm btn-outline-primary">View All</a>
-            </div>
-            <div class="card-body event-list">
-                @if (Model.UpcomingEventsList.Any())
-                {
-                    @foreach (var item in Model.UpcomingEventsList)
+    <div class="row">
+        <!-- Recent Events -->
+        <div class="col-lg-6 mb-4">
+            <div class="card shadow h-100">
+                <div class="card-header py-3 d-flex justify-content-between align-items-center">
+                    <h6 class="m-0 font-weight-bold">Recent Events</h6>
+                    <a asp-controller="Events" asp-action="Index" class="btn btn-sm btn-outline-primary">View All</a>
+                </div>
+                <div class="card-body event-list">
+                    @if (Model.RecentEvents.Any())
                     {
-                        <div class="event-item" style="border-left-color: @GetCategoryColor(item.Category)">
-                            <div class="d-flex justify-content-between align-items-center mb-2">
-                                <h5 class="mb-0">@item.Title</h5>
-                                <span class="category-badge" style="background-color: @GetCategoryColor(item.Category)">
-                                    @item.Category
-                                </span>
+                        @foreach (var item in Model.RecentEvents)
+                        {
+                            <div class="event-item" style="border-left-color: @GetCategoryColor(item.Category)">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <h5 class="mb-0">@item.Title</h5>
+                                    <span class="category-badge" style="background-color: @GetCategoryColor(item.Category)">
+                                        @item.Category
+                                    </span>
+                                </div>
+                                <div class="text-muted mb-2">
+                                    <i class="far fa-calendar-alt me-2"></i>@item.StartDate.ToString("MMM dd, yyyy h:mm tt")
+                                </div>
+                                <div class="text-muted">
+                                    <i class="fas fa-map-marker-alt me-2"></i>@item.Location
+                                </div>
+                                <div class="mt-2">
+                                    <a asp-controller="Events" asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-light">View Details</a>
+                                </div>
                             </div>
-                            <div class="text-muted mb-2">
-                                <i class="far fa-calendar-alt me-2"></i>@item.StartDate.ToString("MMM dd, yyyy h:mm tt")
-                            </div>
-                            <div class="text-muted">
-                                <i class="fas fa-map-marker-alt me-2"></i>@item.Location
-                            </div>
-                            <div class="mt-2">
-                                <a asp-controller="Events" asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-light">View Details</a>
-                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <div class="text-center py-4">
+                            <p class="text-muted">No recent events to display</p>
                         </div>
                     }
-                }
-                else
-                {
-                    <div class="text-center py-4">
-                        <p class="text-muted">No upcoming events to display</p>
-                    </div>
-                }
+                </div>
+            </div>
+        </div>
+
+        <!-- Upcoming Events -->
+        <div class="col-lg-6 mb-4">
+            <div class="card shadow h-100">
+                <div class="card-header py-3 d-flex justify-content-between align-items-center">
+                    <h6 class="m-0 font-weight-bold">Upcoming Events</h6>
+                    <a asp-controller="Events" asp-action="Index" class="btn btn-sm btn-outline-primary">View All</a>
+                </div>
+                <div class="card-body event-list">
+                    @if (Model.UpcomingEventsList.Any())
+                    {
+                        @foreach (var item in Model.UpcomingEventsList)
+                        {
+                            <div class="event-item" style="border-left-color: @GetCategoryColor(item.Category)">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <h5 class="mb-0">@item.Title</h5>
+                                    <span class="category-badge" style="background-color: @GetCategoryColor(item.Category)">
+                                        @item.Category
+                                    </span>
+                                </div>
+                                <div class="text-muted mb-2">
+                                    <i class="far fa-calendar-alt me-2"></i>@item.StartDate.ToString("MMM dd, yyyy h:mm tt")
+                                </div>
+                                <div class="text-muted">
+                                    <i class="fas fa-map-marker-alt me-2"></i>@item.Location
+                                </div>
+                                <div class="mt-2">
+                                    <a asp-controller="Events" asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-light">View Details</a>
+                                </div>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <div class="text-center py-4">
+                            <p class="text-muted">No upcoming events to display</p>
+                        </div>
+                    }
+                </div>
             </div>
         </div>
     </div>
 </div>
+
 
 @section Scripts {
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

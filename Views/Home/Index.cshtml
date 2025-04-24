@@ -2,13 +2,56 @@
     ViewData["Title"] = "Home Page";
 }
 
-<section class="flex justify-center items-center min-h-[70vh]">
-    <div class="text-center">
-        <h1 class="display-4 text-4xl font-bold mb-4">Welcome</h1>
-        <p class="text-lg">Learn about 
-            <a class="text-blue-600 hover:underline" href="https://learn.microsoft.com/aspnet/core" target="_blank">
-                building Web apps with ASP.NET Core
-            </a>.
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+    body {
+        margin: 0;
+        font-family: 'Poppins', sans-serif;
+    }
+</style>
+
+<section id="hero" class="position-relative text-white d-flex align-items-center justify-content-center vh-100 mt-2" 
+    style="background-image: url('@Url.Content("~/images/party.jpg")'); background-size: cover; background-position: center;">
+    <div class="position-absolute mt-2 start-0 w-100 h-100 bg-dark" style="opacity: 0.8;"></div>
+
+    <div class="position-relative text-center z-1 px-4">
+        <h1 class="display-4 fw-bold mb-4">Welcome to Eventora</h1>
+        <p class="lead mb-4">
+            Eventora is your all-in-one event management solution — plan, organize, and execute events effortlessly.
         </p>
+        <a href="#about" class="btn btn-light fw-semibold px-4 py-2">
+            Learn More
+        </a>
     </div>
 </section>
+
+
+<section id="about" class="position-relative text-dark d-flex align-items-center justify-content-center vh-100">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-6 text-center">
+                <img src="@Url.Content("~/images/about.jpg")" alt="About Eventora" class="img-fluid rounded shadow" style="max-height: 500px;">
+            </div>
+
+            <div class="col-md-6 px-4">
+                <h2 class="display-5 fw-bold mb-4 text-center">About Us</h2>
+                <p class="lead text-justify">
+                    Eventora is an intuitive event management system designed to simplify the planning and coordination of events.
+                    Whether you’re organizing a conference, seminar, wedding, or corporate meeting, Eventora helps you stay on top of tasks,
+                    manage attendees, send notifications, and ensure a smooth experience from start to finish.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    body {
+        margin: 0;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    .text-justify {
+        text-align: justify;
+    }
+</style>
