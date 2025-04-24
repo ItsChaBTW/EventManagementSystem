@@ -9,18 +9,55 @@
     @if (SignInManager.IsSignedIn(User))
     {
         <div class="nav-link text-white">
-            Hello @UserManager.GetUserAsync(User).Result.FullName!
+            <a class="text-white text-decoration-none" asp-area="Identity" asp-page="/Account/Manage/Index">
+                Hello @UserManager.GetUserAsync(User).Result.FullName!
+            </a>
         </div>
     }
 
     <div class="d-flex align-items-center space-x-4">
         @if (SignInManager.IsSignedIn(User))
         {
-            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                <button type="submit" class="nav-link btn btn-link text-white hover:text-gray-300 transition-colors duration-200">
-                    <i class="fa-solid fa-right-from-bracket me-2"></i>
+            <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                <button type="button" onclick="confirmLogout()" class="nav-link btn btn-link text-white hover:text-gray-300 transition-colors duration-200">
+                    <i class="fa-solid fa-right-from-bracket me-2"></i> Logout
                 </button>
             </form>
+            <script>
+                function confirmLogout() {
+                    iziToast.question({
+                        timeout: 20000,
+                        close: false,
+                        overlay: true,
+                        displayMode: 'once',
+                        id: 'question',
+                        zindex: 999,
+                        title: 'Sign Out',
+                        titleColor: '#363062',
+                        titleSize: '20px', // Increased from 16px
+                        titleLineHeight: '28px', // Increased from 24px
+                        message: 'Are you sure you want to end your session?',
+                        messageColor: '#4D4C7D',
+                        messageSize: '16px', // Increased from 14px
+                        backgroundColor: '#F5F5F5',
+                        position: 'center',
+                        progressBarColor: '#363062',
+                        icon: 'fa-solid fa-right-from-bracket fa-lg', // Added fa-lg to make icon bigger
+                        iconColor: '#363062',
+                        drag: false,
+                        width: '400px', // Added width to make toast bigger
+                        buttons: [
+                            ['<button class="confirm-btn" style="font-size: 16px;"><i class="fas fa-check me-1"></i>Yes, Sign Out</button>', function (instance, toast) {
+                                instance.hide({ transitionOut: 'fadeOutDown' }, toast, 'button');
+                                document.getElementById('logoutForm').submit();
+                            }, true],
+                            ['<button class="cancel-btn" style="font-size: 16px;"><i class="fas fa-times me-1"></i>Cancel</button>', function (instance, toast) {
+                                instance.hide({ transitionOut: 'fadeOutUp' }, toast, 'button');
+                            }]
+                        ]
+                    });
+                }
+            </script>
         }
         else
         {
