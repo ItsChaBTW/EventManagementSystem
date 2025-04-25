@@ -284,6 +284,40 @@
             background-color: #818FB4;
         }
 
+        /* Modal Styling */
+        .modal-content {
+            border-radius: 12px;
+            border: none;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+        }
+        
+        .modal-header {
+            background: linear-gradient(135deg, #363062 0%, #4D4C7D 100%);
+            color: white;
+            border-bottom: none;
+            padding: 20px 25px;
+        }
+        
+        .modal-footer {
+            border-top: 1px solid #eee;
+            padding: 15px 25px;
+        }
+        
+        .modal-body {
+            padding: 25px;
+        }
+        
+        .btn-secondary {
+            background-color: #818FB4;
+            border: none;
+            border-radius: 20px;
+            padding: 8px 20px;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #363062;
+        }
      
     </style>
 }
@@ -378,7 +412,7 @@
                                 <a href="@Url.Action("Edit", new { id = item.Id })" class="action-btn action-btn-edit" title="Edit">
                                     <i class="fas fa-edit"></i>
                                 </a>
-                                <a href="@Url.Action("Details", new { id = item.Id })" class="action-btn action-btn-view" title="View Details">
+                                <a href="javascript:void(0)" class="action-btn action-btn-view" title="View Details" onclick="openDetailsModal(@item.Id)">
                                     <i class="fas fa-eye"></i>
                                 </a>
                                 <a href="@Url.Action("Delete", new { id = item.Id })" class="action-btn action-btn-delete delete-event" data-title="@item.Title" title="Delete">
@@ -391,6 +425,27 @@
             }
         </div>
     }
+</div>
+
+<!-- Event Details Modal -->
+<div class="modal fade" id="eventDetailsModal" tabindex="-1" aria-labelledby="eventDetailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="eventDetailsModalLabel">Event Details</h5>
+            </div>
+            <div class="modal-body" id="eventDetailsContent">
+                <div class="text-center">
+                    <div class="spinner-border" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 @section Scripts {
@@ -424,6 +479,25 @@
                 }
             });
         });
+
+        // Function to open event details modal
+        function openDetailsModal(eventId) {
+            // Show the modal
+            var detailsModal = new bootstrap.Modal(document.getElementById('eventDetailsModal'));
+            detailsModal.show();
+            
+            // Load event details via AJAX
+            $.ajax({
+                url: '@Url.Action("DetailsPartial", "Events")/' + eventId,
+                type: 'GET',
+                success: function(response) {
+                    $('#eventDetailsContent').html(response);
+                },
+                error: function() {
+                    $('#eventDetailsContent').html('<div class="alert alert-danger">Error loading event details. Please try again.</div>');
+                }
+            });
+        }
     </script>
 }
 

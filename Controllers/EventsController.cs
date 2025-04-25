@@ -30,8 +30,10 @@ namespace EventManagementSystem.Controllers
             return View(events);
         }
 
-        // GET: Events/Details/5
-        public async Task<IActionResult> Details(int? id)
+        
+
+        // GET: Events/DetailsPartial/5
+        public async Task<IActionResult> DetailsPartial(int? id)
         {
             if (id == null)
             {
@@ -48,7 +50,7 @@ namespace EventManagementSystem.Controllers
                 return NotFound();
             }
 
-            return View(@event);
+            return PartialView("_EventDetailsPartial", @event);
         }
 
         // GET: Events/Create

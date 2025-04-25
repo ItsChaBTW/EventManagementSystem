@@ -227,6 +227,41 @@
         .bg-concert { background-color: #fd7e14; }
         .bg-meeting { background-color: #6f42c1; }
         .bg-other { background-color: #858796; }
+        
+        /* Modal Styling */
+        .modal-content {
+            border-radius: 12px;
+            border: none;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+        }
+        
+        .modal-header {
+            background: linear-gradient(135deg, #363062 0%, #4D4C7D 100%);
+            color: white;
+            border-bottom: none;
+            padding: 20px 25px;
+        }
+        
+        .modal-footer {
+            border-top: 1px solid #eee;
+            padding: 15px 25px;
+        }
+        
+        .modal-body {
+            padding: 25px;
+        }
+        
+        .btn-secondary {
+            background-color: #818FB4;
+            border: none;
+            border-radius: 20px;
+            padding: 8px 20px;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #363062;
+        }
     </style>
 }
 
@@ -313,7 +348,7 @@
                                     <td>@(item.MaxAttendees?.ToString() ?? "Unlimited")</td>
                                     <td>@item.OrganizerName</td>
                                     <td>
-                                        <a asp-controller="Events" asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary">
+                                        <a href="javascript:void(0)" onclick="openDetailsModal(@item.Id)" class="btn btn-sm btn-outline-primary">
                                             <i class="fas fa-eye me-1"></i>Details
                                         </a>
                                     </td>
@@ -337,4 +372,52 @@
     }
     
    
-</div> 
+</div>
+
+<!-- Event Details Modal -->
+<div class="modal fade" id="eventDetailsModal" tabindex="-1" aria-labelledby="eventDetailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="eventDetailsModalLabel">Event Details</h5>
+            </div>
+            <div class="modal-body" id="eventDetailsContent">
+                <div class="text-center">
+                    <div class="spinner-border" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            // Any existing scripts can stay here
+        });
+        
+        // Function to open event details modal
+        function openDetailsModal(eventId) {
+            // Show the modal
+            var detailsModal = new bootstrap.Modal(document.getElementById('eventDetailsModal'));
+            detailsModal.show();
+            
+            // Load event details via AJAX
+            $.ajax({
+                url: '@Url.Action("DetailsPartial", "Events")/' + eventId,
+                type: 'GET',
+                success: function(response) {
+                    $('#eventDetailsContent').html(response);
+                },
+                error: function() {
+                    $('#eventDetailsContent').html('<div class="alert alert-danger">Error loading event details. Please try again.</div>');
+                }
+            });
+        }
+    </script>
+} 
