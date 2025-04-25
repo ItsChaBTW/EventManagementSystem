@@ -99,7 +99,29 @@ $(document).ready(function () {
             buttons: [
                 ['<button><b>Yes, Delete</b></button>', function (instance, toast) {
                     instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
-                    window.location.href = deleteUrl;
+                    
+                    // Use AJAX to delete the event
+                    $.ajax({
+                        url: deleteUrl,
+                        type: 'GET',
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest'
+                        },
+                        success: function(response) {
+                            if (response.success) {
+                                window.showSuccessToast('Event deleted successfully');
+                                // Reload the page or remove the event element from DOM
+                                setTimeout(function() {
+                                    window.location.reload();
+                                }, 1000);
+                            } else {
+                                window.showErrorToast('Failed to delete event');
+                            }
+                        },
+                        error: function() {
+                            window.showErrorToast('Error deleting event');
+                        }
+                    });
                 }, true],
                 ['<button>Cancel</button>', function (instance, toast) {
                     instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');

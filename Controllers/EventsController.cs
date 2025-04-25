@@ -157,6 +157,14 @@ namespace EventManagementSystem.Controllers
                 return NotFound();
             }
 
+            // If it's an AJAX request, delete the event immediately
+            if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+            {
+                _context.Events.Remove(@event);
+                await _context.SaveChangesAsync();
+                return Json(new { success = true });
+            }
+
             return View(@event);
         }
 
@@ -184,6 +192,20 @@ namespace EventManagementSystem.Controllers
             return _context.Events.Any(e => e.Id == id);
         }
 
+        // GET: Events/DetailsPartial/5
+        public async Task<IActionResult> DetailsPartial(int id)
+        {
+            var @event = await _context.Events
+                .Include(e => e.Organizer)
+                .FirstOrDefaultAsync(m => m.Id == id);
+                
+            if (@event == null)
+            {
+                return NotFound();
+            }
+
+            return PartialView("EventDetails", @event);
+        }
         
     }
 } 
