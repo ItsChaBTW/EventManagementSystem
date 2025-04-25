@@ -26,26 +26,38 @@ $(document).ready(function () {
                 box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3) !important;
                 justify-content: center;
                 align-items: center;
+                text-align: center !important;
             }
             .custom-question .iziToast-header {
                 margin-bottom: 20px !important;
+                justify-content: center;
+                align-items: center;
+                text-align: center !important;
             }
             .custom-question .iziToast-title {
                 font-size: 24px !important;
                 font-weight: 600 !important;
                 margin-bottom: 10px !important;
                 color: #333 !important;
+                justify-content: center;
+                align-items: center;
+                text-align: center !important;
             }
             .custom-question .iziToast-message {
                 font-size: 18px !important;
                 line-height: 1.5 !important;
                 color: #555 !important;
                 margin-bottom: 20px !important;
+                justify-content: center;
+                align-items: center;
+                text-align: center !important;
             }
             .custom-question .iziToast-buttons {
                 display: flex !important;
                 justify-content: center !important;
                 gap: 15px !important;
+                justify-content: center;
+                align-items: center;
             }
             .custom-question .iziToast-buttons button {
                 min-width: 120px !important;
