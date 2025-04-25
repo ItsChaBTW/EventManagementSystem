@@ -38,10 +38,23 @@ body, .navbar-nav .nav-link, .nav-link, .navbar-brand {
   align-items: center;
 }
 
-
 .navbar-brand img {
-  height: 100px; 
-  width: 150px;
+  max-height: 100px;
+  width: auto;
+}
+
+@media (max-width: 768px) {
+  .navbar-brand img {
+      max-height: 70px; 
+      width: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar-brand img {
+      max-height: 50px; 
+      width: auto;
+  }
 }
 
 a.navbar-brand {
