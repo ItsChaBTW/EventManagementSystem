@@ -27,6 +27,7 @@ $(document).ready(function () {
                 justify-content: center;
                 align-items: center;
                 text-align: center !important;
+                background-color: white !important;
             }
             .custom-question .iziToast-header {
                 margin-bottom: 20px !important;
@@ -73,11 +74,11 @@ $(document).ready(function () {
                 outline: none !important;
             }
             .custom-question .iziToast-buttons button:first-child {
-                background-color:rgb(214, 113, 123) !important;
+                background-color: #818FB4 !important;
                 color: white !important;
             }
             .custom-question .iziToast-buttons button:first-child:hover {
-                background-color: #c82333 !important;
+                background-color: #435585 !important;
             }
             .custom-question .iziToast-buttons button:last-child {
                 background-color: #6c757d !important;
