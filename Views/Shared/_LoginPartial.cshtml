@@ -22,54 +22,128 @@
                     <i class="fa-solid fa-right-from-bracket me-2"></i> 
                 </button>
             </form>
-            <script>
-                function confirmLogout() {
-                    iziToast.question({
-                        timeout: 20000,
-                        close: false,
-                        overlay: true,
-                        displayMode: 'once',
-                        id: 'question',
-                        zindex: 999,
-                        title: 'Sign Out',
-                        titleColor: '#363062',
-                        titleSize: '20px', // Increased from 16px
-                        titleLineHeight: '28px', // Increased from 24px
-                        message: 'Are you sure you want to end your session?',
-                        messageColor: '#4D4C7D',
-                        messageSize: '16px', // Increased from 14px
-                        backgroundColor: '#F5F5F5',
-                        position: 'center',
-                        progressBarColor: '#363062',
-                        icon: 'fa-solid fa-right-from-bracket fa-lg', // Added fa-lg to make icon bigger
-                        iconColor: '#363062',
-                        drag: false,
-                        width: '400px', // Added width to make toast bigger
-                        buttons: [
-                            ['<button class="confirm-btn" style="font-size: 16px;"><i class="fas fa-check me-1"></i>Yes, Sign Out</button>', function (instance, toast) {
-                                instance.hide({ transitionOut: 'fadeOutDown' }, toast, 'button');
-                                document.getElementById('logoutForm').submit();
-                            }, true],
-                            ['<button class="cancel-btn" style="font-size: 16px;"><i class="fas fa-times me-1"></i>Cancel</button>', function (instance, toast) {
+       <script>
+            function confirmLogout() {
+                iziToast.question({
+                    timeout: false,
+                    close: false,
+                    overlay: true,
+                    displayMode: 'once',
+                    id: 'question',
+                    zindex: 999,
+                    title: 'Are you sure?',
+                    titleColor: '#2f2f72',
+                    message: 'You are about to log out of your session.',
+                    messageColor: '#4d4c7d',
+                    backgroundColor: '#f8f9fa',
+                    position: 'center',
+                    icon: 'fa-solid fa-circle-question',
+                    iconColor: '#ff6b6b',
+                    drag: false,
+                    layout: 2,
+                    transitionIn: 'fadeInDown',
+                    transitionOut: 'fadeOutUp',
+                    class: 'custom-logout-toast',
+                    buttons: [
+                        [
+                            '<button class="izi-btn-confirm"><i class="fas fa-check me-1"></i>Yes, Logout</button>',
+                            function (instance, toast) {
                                 instance.hide({ transitionOut: 'fadeOutUp' }, toast, 'button');
-                            }]
+                                document.getElementById('logoutForm').submit();
+                            },
+                            true
+                        ],
+                        [
+                            '<button class="izi-btn-cancel"><i class="fas fa-times me-1"></i>Cancel</button>',
+                            function (instance, toast) {
+                                instance.hide({ transitionOut: 'fadeOutUp' }, toast, 'button');
+                            }
                         ]
-                    });
-                }
-            </script>
+                    ]
+                });
+            }
+        </script>
+
+        <style>
+            .iziToast.custom-logout-toast {
+                width: 450px !important;
+                min-height: 250px;
+                top: 50% !important;
+                left: 50% !important;
+                transform: translate(-50%, -50%) !important;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                padding: 25px;
+            }
+
+            .iziToast-title {
+                font-size: 24px !important;
+                font-weight: bold;
+                margin-bottom: 16px !important;
+                width: 100%;
+                text-align: center;
+                line-height: 1.6;
+                display: block !important; 
+            }
+
+            .iziToast-message {
+                font-size: 18px !important;
+                width: 100%;
+                text-align: center;
+                margin-bottom: 30px !important;
+                line-height: 1.7;
+                display: block !important; 
+            }
+
+
+            .izi-btn-confirm,
+            .izi-btn-cancel {
+                padding: 12px 20px;
+                font-size: 16px;
+                border-radius: 8px;
+                cursor: pointer;
+                margin: 10px 8px 0;
+                border: none;
+                width: 140px;
+                gap: 5;
+            }
+
+            .izi-btn-confirm {
+                background-color: #dc3545; /* deep red */
+                color: white;
+            }
+
+            .izi-btn-cancel {
+                background-color: #c0c0c0;
+                color: #333;
+            }
+
+            .izi-btn-confirm:hover {
+                background-color: #bb2d3b;
+            }
+
+            .izi-btn-cancel:hover {
+                background-color: #b0b0b0;
+            }
+        </style>
+
+
         }
         else
         {
             <li class="nav-item">
-                <a class="nav-link text-white" asp-area="Identity" asp-page="/Account/Register">
-                <i class="fa-solid fa-user-plus"></i>
-                Register
+                <a class="nav-link text-white @(ViewContext.RouteData.Values["Page"]?.ToString() == "/Account/Register" ? "active" : "")"
+                   asp-area="Identity" asp-page="/Account/Register">
+                    <i class="fa-solid fa-user-plus"></i> Register
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-white" asp-area="Identity" asp-page="/Account/Login">
-                <i class="fa-solid fa-right-to-bracket"></i>
-                Login
+                <a class="nav-link text-white @(ViewContext.RouteData.Values["Page"]?.ToString() == "/Account/Login" ? "active" : "")"
+                   asp-area="Identity" asp-page="/Account/Login">
+                    <i class="fa-solid fa-right-to-bracket"></i> Login
                 </a>
             </li>
         }

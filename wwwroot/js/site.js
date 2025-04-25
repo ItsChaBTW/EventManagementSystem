@@ -20,10 +20,12 @@ $(document).ready(function () {
                 background: rgba(0, 0, 0, 0.6) !important;
             }
             .custom-question {
-                width: 500px !important;
+                width: 450px !important;
                 padding: 30px !important;
                 border-radius: 8px !important;
                 box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3) !important;
+                justify-content: center;
+                align-items: center;
             }
             .custom-question .iziToast-header {
                 margin-bottom: 20px !important;
@@ -56,7 +58,7 @@ $(document).ready(function () {
                 outline: none !important;
             }
             .custom-question .iziToast-buttons button:first-child {
-                background-color: #dc3545 !important;
+                background-color:rgb(214, 113, 123) !important;
                 color: white !important;
             }
             .custom-question .iziToast-buttons button:first-child:hover {
@@ -68,6 +70,10 @@ $(document).ready(function () {
             }
             .custom-question .iziToast-buttons button:last-child:hover {
                 background-color: #5a6268 !important;
+            }
+
+            title{
+                text-align: center;
             }
         `)
         .appendTo("head");
@@ -89,6 +95,7 @@ $(document).ready(function () {
             message: 'Are you sure you want to delete the event "' + eventTitle + '"?',
             position: 'center',
             class: 'custom-question',
+            backgroundColor: '#F5E8C7',
             buttons: [
                 ['<button><b>Yes, Delete</b></button>', function (instance, toast) {
                     instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');

@@ -97,3 +97,36 @@ button.accept-policy {
 
 }
 
+
+.navbar-nav .nav-link {
+  position: relative;
+  color: #ffffff;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.navbar-nav .nav-link::after {
+  content: "";
+  position: absolute;
+  width: 0%;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: #ffffff;
+  transition: width 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover::after {
+  width: 100%;
+}
+
+.navbar-nav .nav-link.active {
+  color: #ffc107 !important; 
+  font-weight: 600;
+}
+
+.navbar-nav .nav-link.active::after {
+  width: 100%;
+  background-color: #ffc107;
+}
+

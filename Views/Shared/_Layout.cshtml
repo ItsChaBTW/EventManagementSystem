@@ -14,58 +14,97 @@
     <link href="https://fonts.googleapis.com/css2?family=Passion+One:wght@400;700;900&family=Paytone+One&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Quicksand:wght@300..700&family=Sigmar&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
-
-
     @await RenderSectionAsync("Styles", required: false)
+
+
 </head>
+
+<style>
+.navbar-nav .nav-link {
+    position: relative;
+    color: #ffffff;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.navbar-nav .nav-link::after {
+    content: "";
+    position: absolute;
+    width: 0%;
+    height: 1px;
+    bottom: 0;
+    left: 0;
+    background-color: #ffffff;
+    transition: width 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover::after {
+    width: 100%;
+}
+
+.navbar-nav .nav-link.active {
+    color: #F5E8C7 !important; 
+    font-weight: 600;
+}
+
+.navbar-nav .nav-link.active::after {
+    width: 100%;
+    background-color: #F5E8C7;
+}
+
+.navbar-collapse.show {
+        background-color: #363062; 
+        padding: 10px;
+        border-radius: 0 0 10px 10px;
+    }
+</style>
+
 <body class="font-poppins">
     <header>
         <nav class="navbar fixed-top navbar-expand-sm navbar-toggleable-sm navbar-light bg-white shadow-sm">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
-                    <img src="/images/eventora2.png" alt="eventora logo"/> 
+                    <img src="/images/eventora2.png" alt="eventora logo" class="fluid"/> 
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between text-center">
-                    <ul class="navbar-nav flex-grow-1">
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-center text-center">
+                    <ul class="navbar-nav flex-grow-1 justify-content-center gap-3 fs-5">
                         
                        @if (User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-white" asp-area="" asp-controller="Dashboard"
-                                    asp-action="Index">
-                                    <i class="fa-solid fa-gauge"></i>
-                                    Dashboard
-                                    </a>
+                                 <a class="nav-link text-white @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Dashboard" ? "active" : "")"
+                                    asp-area="" asp-controller="Dashboard" asp-action="Index">
+                                    Dashboard</a>
+                                    
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-white" asp-area="" asp-controller="Events" asp-action="Index">
-                                <i class="fa-solid fa-calendar-days"></i>
+                               <a class="nav-link text-white @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Events" ? "active" : "")"
+                                asp-area="" asp-controller="Events" asp-action="Index">
                                 My Events</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-white" asp-area="" asp-controller="Reports"
-                                    asp-action="Index">
-                                    <i class="fa-solid fa-flag"></i>
-                                    Reports</a>
+                                <a class="nav-link text-white @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Reports" ? "active" : "")"
+                                asp-area="" asp-controller="Reports" asp-action="Index">
+                                Reports</a>
                             </li>
                         }
                         else
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">
-                                <i class="fa-solid fa-house"></i>
-                                Home</a>
+                                <a class="nav-link text-white @(ViewContext.RouteData.Values["Action"]?.ToString() == "Index" ? "active" : "")"
+                                asp-area="" asp-controller="Home" asp-action="Index">
+                                    Home
+                                </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-white" asp-area="" asp-controller="Home"
-                                    asp-action="Privacy">
-                                    <i class="fa-solid fa-shield-halved"></i>
-                                    Privacy</a>
+                                <a class="nav-link text-white @(ViewContext.RouteData.Values["Action"]?.ToString() == "Privacy" ? "active" : "")"
+                                asp-area="" asp-controller="Home" asp-action="Privacy">
+                                    Privacy
+                                </a>
                             </li>
                         }
                     </ul>
