@@ -5,10 +5,31 @@
     ViewData["ActivePage"] = ManageNavPages.Index;
 }
 
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+<style>
+    body {
+        font-family: 'Poppins', sans-serif;
+        background-color:rgb(144, 157, 192);
+    }
+    .container {
+        margin-top: 100px;
+        padding: 30px;
+        background-color: white;
+        width: 600px;
+        border-radius: 30px;
+        position: relative;
+    }
+</style>
+
+
+
 <h3>@ViewData["Title"]</h3>
 <partial name="_StatusMessage" for="StatusMessage" />
-<div class="row">
-    <div class="col-md-6">
+<div class="row text-center mx-auto">
+    <div class="col-md-12">
         <form id="profile-form" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
             <div class="form-floating mb-3">

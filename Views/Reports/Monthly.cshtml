@@ -198,17 +198,16 @@
         }
         
         .btn-back {
-            background-color: white;
-            color: #363062;
+            color: white;
             padding: 8px 15px;
             border-radius: 25px;
             font-weight: 600;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
             z-index: 10;
+            font-size: 30px;
         }
 
         .btn-back:hover {
-            background-color: #4D4C7D;
+            background-color: #818FB4;
             color: white;
         }
 
@@ -238,8 +237,60 @@
         .bg-meeting { background-color: #6f42c1; }
         .bg-other { background-color: #858796; }
 
+ 
 
+        
+        /* Modal Styling */
+        .modal-content {
+            border-radius: 12px;
+            border: none;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            height: auto;
+        }
+        
+        .modal-header {
+            background: linear-gradient(135deg, #363062 0%, #4D4C7D 100%);
+            color: white;
+            border-bottom: none;
+            padding: 20px 25px;
+        }
+        
+        .modal-footer {
+            border-top: 1px solid #eee;
+            padding: 15px 25px;
+        }
+        
+        .modal-body {
+            padding: 25px;
+        }
+        
+        .btn-secondary {
+            background-color: #818FB4;
+            border: none;
+            border-radius: 20px;
+            padding: 8px 20px;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #363062;
+        }
+         .custom-close-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: white;
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            cursor: pointer;
+            z-index: 1055;
+        }
 
+        .custom-close-btn:hover {
+            color: #ccc;
+        }
+        
     </style>
 }
 
@@ -329,7 +380,7 @@
                                     <td>@(item.MaxAttendees?.ToString() ?? "Unlimited")</td>
                                     <td>@item.OrganizerName</td>
                                     <td>
-                                        <a asp-controller="Events" asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary">
+                                        <a href="javascript:void(0)" onclick="openDetailsModal(@item.Id)" class="btn btn-sm btn-outline-primary">
                                             <i class="fas fa-eye me-1"></i>Details
                                         </a>
                                     </td>
@@ -353,4 +404,54 @@
     }
     
    
-</div> 
+</div>
+
+<div class="modal fade" id="eventDetailsModal" tabindex="-1" aria-labelledby="eventDetailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md custom-modal-dialog">
+        <div class="modal-content custom-modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-center" id="eventDetailsModalLabel">Event Details</h5>
+                <button type="button" class="custom-close-btn" data-bs-dismiss="modal" aria-label="Close">&times;</button>
+            </div>
+            <div class="modal-body" id="eventDetailsContent">
+                <div class="text-center">
+                    <div class="spinner-border" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+   
+</style>
+
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            // Any existing scripts can stay here
+        });
+        
+        // Function to open event details modal
+        function openDetailsModal(eventId) {
+            // Show the modal
+            var detailsModal = new bootstrap.Modal(document.getElementById('eventDetailsModal'));
+            detailsModal.show();
+            
+            // Load event details via AJAX
+            $.ajax({
+                url: '@Url.Action("DetailsPartial", "Events")/' + eventId,
+                type: 'GET',
+                success: function(response) {
+                    $('#eventDetailsContent').html(response);
+                },
+                error: function() {
+                    $('#eventDetailsContent').html('<div class="alert alert-danger">Error loading event details. Please try again.</div>');
+                }
+            });
+        }
+    </script>
+} 

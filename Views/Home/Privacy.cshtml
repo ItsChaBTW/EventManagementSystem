@@ -1,6 +1,125 @@
 ﻿@{
-    ViewData["Title"] = "Privacy Policy";
+    ViewData["Title"] = "Privacy";
 }
-<h1>@ViewData["Title"]</h1>
 
-<p>Use this page to detail your site's privacy policy.</p>
+<style>
+    body {
+        font-family: 'Poppins', sans-serif;
+        background-color: #818FB4;
+    }
+
+    .privacy-section {
+        padding: 60px 20px;
+        background-color: #f8f9fa;
+    }
+
+    .privacy-section:nth-child(even) {
+        background-color: #ffffff;
+    }
+
+    .privacy-title {
+        font-weight: 600;
+        color: #363062;
+        margin-bottom: 1rem;
+        font-size: 1.5rem; 
+    }
+    .privacy-header {
+        font-weight: 600;
+        color: #363062;
+        margin-bottom: 1rem;
+        font-size: 2rem; 
+        text-align: center;
+    }
+
+    .privacy-container {
+        max-width: 1200px;
+        margin: auto;
+        margin-top: 50px;
+        padding: 30px;
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); 
+    }
+
+    .privacy-content {
+        font-size: 1rem;
+        color: #333;
+    }
+
+    .privacy-left {
+        padding-right: 20px;
+        text-align: justify; 
+    }
+
+    .privacy-right {
+        padding-left: 20px;
+        text-align: left; 
+    }
+
+    .privacy-content {
+        font-size: 1rem; 
+    }
+
+    .privacy-title::before {
+        content: attr(data-number) ". "; 
+        font-weight: bold;
+        color: #2c3e50;
+    }
+
+</style>
+
+<div class="container-fluid p-0">
+    <div class="privacy-section text-center">
+        <div class="privacy-container d-flex">
+            <div class="privacy-left col-md-6">
+                <h1 class="privacy-header">@ViewData["Title"]</h1>
+                <p class="privacy-content">
+                    At Eventora, we highly value your privacy and are committed to protecting your personal information. This privacy policy outlines 
+                    the various ways in which we collect, use, and safeguard your personal data while using our platform. By registering, creating 
+                    events, or booking tickets on our platform, you trust us with your sensitive information, and we aim to handle it with the utmost 
+                    care and in compliance with relevant privacy laws. This document explains what information we collect, how we use it, who we may 
+                    share it with, and how we keep it secure. We encourage you to read this policy carefully to understand how we use your data to 
+                    provide a better and safer experience on Eventora.
+                </p>
+            </div>
+
+            <div class="privacy-right col-md-6">
+                <h3 class="privacy-title" data-number="1">Information We Collect</h3>
+                <p class="privacy-content">
+                    We collect personal information you provide during registration, event creation, ticket booking, or when contacting us. This 
+                    includes names, email addresses, contact numbers, payment details, and event preferences.
+                </p>
+
+                <h3 class="privacy-title" data-number="2">How We Use Your Information</h3>
+                <p class="privacy-content">
+                    Your information helps us manage event operations, provide customer support, send notifications, personalize user experiences, 
+                    and process payments securely.
+                </p>
+
+                <h3 class="privacy-title" data-number="3">Data Sharing & Disclosure</h3>
+                <p class="privacy-content">
+                    We do not sell your information. We may share data with trusted third-party services for payment processing, event analytics, 
+                    and communication tools, all under strict confidentiality agreements.
+                </p>
+
+                <h3 class="privacy-title" data-number="4">Data Security</h3>
+                <p class="privacy-content">
+                    We use industry-standard encryption and secure servers to protect your information. Regular audits and access control measures 
+                    are in place to prevent unauthorized access.
+                </p>
+
+                <h3 class="privacy-title" data-number="5">Your Rights</h3>
+                <p class="privacy-content">
+                    You may access, update, or request deletion of your data at any time. Contact us if you wish to withdraw consent or have concerns 
+                    about your privacy.
+                </p>
+
+                <h3 class="privacy-title" data-number="6">Contact Us</h3>
+                <p class="privacy-content">
+                    For questions about this privacy policy or your personal data, please contact our support team at 
+                    <strong>privacy@eventora.com</strong>.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
