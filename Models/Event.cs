@@ -17,10 +17,12 @@ namespace EventManagementSystem.Models
         
         [Required]
         [Display(Name = "Date")]
+        [FutureDate(ErrorMessage = "Start date must be in the future for new events")]
         public DateTime StartDate { get; set; }
         
         [Required]
         [Display(Name = "End Date")]
+        [DateGreaterThan("StartDate", ErrorMessage = "End date must be after the start date")]
         public DateTime EndDate { get; set; }
         
         [Required]
@@ -39,5 +41,55 @@ namespace EventManagementSystem.Models
         
         // Navigation property
         public ApplicationUser? Organizer { get; set; }
+    }
+
+    // Custom validation attribute to ensure the date is in the future
+    public class FutureDateAttribute : ValidationAttribute
+    {
+        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
+        {
+            // For edit actions, we don't want to enforce future date
+            if (validationContext.ObjectInstance is Event evt && evt.Id > 0)
+            {
+                return ValidationResult.Success;
+            }
+
+            DateTime date = (DateTime)value;
+            if (date < DateTime.Now)
+            {
+                return new ValidationResult(ErrorMessage);
+            }
+            
+            return ValidationResult.Success;
+        }
+    }
+
+    // Custom validation attribute to compare two dates
+    public class DateGreaterThanAttribute : ValidationAttribute
+    {
+        private readonly string _comparisonProperty;
+
+        public DateGreaterThanAttribute(string comparisonProperty)
+        {
+            _comparisonProperty = comparisonProperty;
+        }
+
+        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
+        {
+            DateTime endDate = (DateTime)value;
+            
+            var property = validationContext.ObjectType.GetProperty(_comparisonProperty);
+            if (property == null)
+                return new ValidationResult($"Unknown property: {_comparisonProperty}");
+                
+            var startDate = (DateTime)property.GetValue(validationContext.ObjectInstance);
+            
+            if (endDate <= startDate)
+            {
+                return new ValidationResult(ErrorMessage);
+            }
+            
+            return ValidationResult.Success;
+        }
     }
 } 

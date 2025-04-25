@@ -119,4 +119,23 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    
+    <script>
+        $(document).ready(function() {
+            // For editing, we just need to ensure EndDate is after StartDate
+            
+            // Set initial min value for EndDate based on StartDate
+            $("#EndDate").attr("min", $("#StartDate").val());
+            
+            // Update EndDate min when StartDate changes
+            $("#StartDate").on("change", function() {
+                $("#EndDate").attr("min", $(this).val());
+                
+                // If EndDate is now before StartDate, update it
+                if ($("#EndDate").val() < $(this).val()) {
+                    $("#EndDate").val($(this).val());
+                }
+            });
+        });
+    </script>
 } 

@@ -120,4 +120,32 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    
+    <script>
+        $(document).ready(function() {
+            // Get current date in ISO format (YYYY-MM-DDThh:mm)
+            const today = new Date();
+            const yyyy = today.getFullYear();
+            const mm = String(today.getMonth() + 1).padStart(2, '0');
+            const dd = String(today.getDate()).padStart(2, '0');
+            const hh = String(today.getHours()).padStart(2, '0');
+            const min = String(today.getMinutes()).padStart(2, '0');
+            
+            const minDateTime = `${yyyy}-${mm}-${dd}T${hh}:${min}`;
+            
+            // Set min attribute for both date inputs
+            $("#StartDate").attr("min", minDateTime);
+            $("#EndDate").attr("min", minDateTime);
+            
+            // Ensure EndDate is after StartDate when StartDate changes
+            $("#StartDate").on("change", function() {
+                $("#EndDate").attr("min", $(this).val());
+                
+                // If EndDate is now before StartDate, update it
+                if ($("#EndDate").val() < $(this).val()) {
+                    $("#EndDate").val($(this).val());
+                }
+            });
+        });
+    </script>
 }
