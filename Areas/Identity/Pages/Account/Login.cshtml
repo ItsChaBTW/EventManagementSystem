@@ -14,6 +14,10 @@
         <div class="auth-body">
             <form id="account" method="post">
                 <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+                <div id="email-confirmation-message" class="alert alert-warning" style="display: none;">
+                    Email not confirmed. Please check your email for a confirmation link or 
+                    <a asp-page="./ResendEmailConfirmation">click here to resend</a> the confirmation email.
+                </div>
                 <div class="form-floating mb-3">
                     <input asp-for="Input.Email" class="form-control custom-input" autocomplete="username" aria-required="true" placeholder="name@example.com" />
                     <label asp-for="Input.Email">Email</label>
@@ -205,4 +209,18 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+    <script>
+        $(document).ready(function() {
+            // Check if there's an error message containing "Email not confirmed"
+            const validationSummary = $('.validation-summary-errors ul li');
+            
+            validationSummary.each(function() {
+                if ($(this).text().includes('Email not confirmed')) {
+                    // Show the custom message and hide the default one
+                    $('#email-confirmation-message').show();
+                    $(this).hide();
+                }
+            });
+        });
+    </script>
 }
