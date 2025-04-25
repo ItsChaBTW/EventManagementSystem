@@ -127,6 +127,16 @@ namespace EventManagementSystem.Areas.Identity.Pages.Account
                     _logger.LogWarning("User account locked out.");
                     return RedirectToPage("./Lockout");
                 }
+                if (result.IsNotAllowed)
+                {
+                    // This occurs when RequireConfirmedAccount is true and the email isn't confirmed
+                    var user = await _signInManager.UserManager.FindByEmailAsync(Input.Email);
+                    if (user != null && !await _signInManager.UserManager.IsEmailConfirmedAsync(user))
+                    {
+                        ModelState.AddModelError(string.Empty, "Email not confirmed. Please check your email for a confirmation link or click below to resend.");
+                        return Page();
+                    }
+                }
                 else
                 {
                     ModelState.AddModelError(string.Empty, "Invalid login attempt.");
