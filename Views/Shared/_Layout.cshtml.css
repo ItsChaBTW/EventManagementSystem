@@ -40,7 +40,7 @@ body, .navbar-nav .nav-link, .nav-link, .navbar-brand {
 
 .navbar-brand img {
   max-height: 100px;
-  width: auto;
+  width: 150px;
 }
 
 @media (max-width: 768px) {

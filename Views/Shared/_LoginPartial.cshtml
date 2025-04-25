@@ -31,14 +31,13 @@
                     displayMode: 'once',
                     id: 'question',
                     zindex: 999,
+                    icon: '',
                     title: 'Are you sure?',
                     titleColor: '#2f2f72',
                     message: 'You are about to log out of your session.',
                     messageColor: '#4d4c7d',
                     backgroundColor: '#f8f9fa',
                     position: 'center',
-                    icon: 'fa-solid fa-circle-question',
-                    iconColor: '#ff6b6b',
                     drag: false,
                     layout: 2,
                     transitionIn: 'fadeInDown',
@@ -77,6 +76,8 @@
                 align-items: center;
                 text-align: center;
                 padding: 25px;
+                text-align: center !important;
+
             }
 
             .iziToast-title {
@@ -86,7 +87,8 @@
                 width: 100%;
                 text-align: center;
                 line-height: 1.6;
-                display: block !important; 
+                display: block !important;
+                text-align: center !important; 
             }
 
             .iziToast-message {
@@ -96,8 +98,17 @@
                 margin-bottom: 30px !important;
                 line-height: 1.7;
                 display: block !important; 
+                text-align: center !important;
             }
 
+            .iziToast.custom-logout-toast .iziToast-buttons {
+                display: flex !important;
+                justify-content: center !important;
+                width: 100%;
+                flex-wrap: wrap;
+                gap: 15px !important;
+
+            }
 
             .izi-btn-confirm,
             .izi-btn-cancel {
@@ -129,6 +140,7 @@
                 background-color: #b0b0b0;
             }
         </style>
+
 
 
         }

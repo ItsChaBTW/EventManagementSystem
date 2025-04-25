@@ -58,6 +58,9 @@ $(document).ready(function () {
                 gap: 15px !important;
                 justify-content: center;
                 align-items: center;
+                flex-wrap: wrap;
+                width: 100%;
+
             }
             .custom-question .iziToast-buttons button {
                 min-width: 120px !important;
@@ -103,6 +106,7 @@ $(document).ready(function () {
             displayMode: 'once',
             id: 'question',
             zindex: 999,
+            icon: '',
             title: 'Confirm Deletion',
             message: 'Are you sure you want to delete the event "' + eventTitle + '"?',
             position: 'center',
@@ -154,6 +158,7 @@ $(document).ready(function () {
             displayMode: 'once',
             id: 'question',
             zindex: 999,
+            icon: '',
             title: 'Confirm Update',
             message: 'Are you sure you want to update this event?',
             position: 'center',
@@ -182,6 +187,7 @@ $(document).ready(function () {
             displayMode: 'once',
             id: 'question',
             zindex: 999,
+            icon: '',
             title: 'Confirm Creation',
             message: 'Are you sure you want to create this event?',
             position: 'center',
